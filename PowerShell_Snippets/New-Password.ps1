@@ -74,3 +74,23 @@ function New-Password {
     $RandomPassword -join ""
 
 }
+
+$WorkingDirectory = "C:\Windows\Temp"
+$InFile = "Users_to_reset.csv"
+$ErrorFile = "Users_to_reset_errors.txt"
+
+$UsersToReset = (Import-Csv -Path "$WorkingDirectory\$InFile").SamAccountName
+
+ForEach($UserToReset in $UsersToReset){
+    
+    Try{
+        $NewPassword = New-Password -CountLower 6 -CountUpper 6 -CountNumber 6 -CountSpecial 2
+    
+        Set-ADAccountPassword -Identity $UserToReset -Reset -NewPassword (ConvertTo-SecureString -AsPlainText "$NewPassword" -Force)
+    }
+    Catch{
+        $Error = $_.FullyQualifiedErrorId
+        Add-Content -Path "$WorkingDirectory\$ErrorFile" -Value "$UserToReset|$Error"
+    }
+
+}
