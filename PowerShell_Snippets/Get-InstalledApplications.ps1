@@ -1,3 +1,5 @@
+# Original Author: https://github.com/mdjx
+
 function Get-InstalledApplications() {
     [cmdletbinding(DefaultParameterSetName = 'GlobalAndAllUsers')]
 
