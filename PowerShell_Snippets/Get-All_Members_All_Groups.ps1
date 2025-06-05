@@ -10,6 +10,6 @@ ForEach($SourceGroup in $SourceGroups){
 
     $CurrentGroup = $SourceGroup.DistinguishedName
     $LDAPfilter = "(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(memberOf=$CurrentGroup))"
-    Get-ADUser -LDAPFilter $LDAPfilter -SearchBase "DC=corp,DC=centura,DC=org" | Select @{Name = "GroupDN"; Expression = {$CurrentGroup}}, SamAccountName, Company, physicalDeliveryOfficeName, Department, Title | Export-Csv $OutFIle -Append
+    Get-ADUser -LDAPFilter $LDAPfilter -SearchBase "DC=[your company],DC=org" | Select @{Name = "GroupDN"; Expression = {$CurrentGroup}}, SamAccountName, Company, physicalDeliveryOfficeName, Department, Title | Export-Csv $OutFIle -Append
 
 }
