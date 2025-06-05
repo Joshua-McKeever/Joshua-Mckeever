@@ -1,4 +1,4 @@
-$TempFile = "C:\Downloads\All_GroupCenturas.csv"
+$TempFile = "C:\Downloads\All_Groups.csv"
 $OutFIle = "C:\Downloads\GroupMembers.csv"
 
 # Export list of all AD Groups
